@@ -1,0 +1,62 @@
+diff --git a/sys/src/cmd/rio/data.c b/sys/src/cmd/rio/data.c
+--- a/sys/src/cmd/rio/data.c
++++ b/sys/src/cmd/rio/data.c
+@@ -7,6 +7,7 @@
+ #include <keyboard.h>
+ #include <frame.h>
+ #include <fcall.h>
++#include <theme.h>
+ #include "dat.h"
+ #include "fns.h"
+ 
+@@ -175,30 +176,34 @@ Cursor *corners[9] = {
+ void
+ iconinit(void)
+ {
+-	background = allocimage(display, Rect(0,0,1,1), RGB24, 1, 0x777777FF);
++	themeinit("rio");
++
++	background = allocimage(display, Rect(0,0,1,1), RGB24, 1, themeget("background", 0x777777FF));
+ 
+ 	/* greys are multiples of 0x11111100+0xFF, 14* being palest */
+-	cols[BACK] = allocimage(display, Rect(0,0,1,1), CMAP8, 1, 0xFFFFFFFF^reverse);
+-	cols[BORD] = allocimage(display, Rect(0,0,1,1), CMAP8, 1, 0x999999FF^reverse);
+-	cols[TEXT] = allocimage(display, Rect(0,0,1,1), CMAP8, 1, 0x000000FF^reverse);
+-	cols[HTEXT] = allocimage(display, Rect(0,0,1,1), CMAP8, 1, 0x000000FF);
++	cols[BACK] = allocimage(display, Rect(0,0,1,1), CMAP8, 1, themeget("termback", 0xFFFFFFFF^reverse));
++	cols[BORD] = allocimage(display, Rect(0,0,1,1), CMAP8, 1, themeget("termbord", 0x999999FF^reverse));
++	cols[TEXT] = allocimage(display, Rect(0,0,1,1), CMAP8, 1, themeget("termtext", 0x000000FF^reverse));
++	cols[HTEXT] = allocimage(display, Rect(0,0,1,1), CMAP8, 1, themeget("termhtext", 0x000000FF));
+ 	if(!reverse) {
+-		cols[HIGH] = allocimage(display, Rect(0,0,1,1), CMAP8, 1, 0xCCCCCCFF);
+-		titlecol = allocimage(display, Rect(0,0,1,1), CMAP8, 1, DGreygreen);
+-		lighttitlecol = allocimage(display, Rect(0,0,1,1), CMAP8, 1, DPalegreygreen);
++		cols[HIGH] = allocimage(display, Rect(0,0,1,1), CMAP8, 1, themeget("termhigh", 0xCCCCCCFF));
++		titlecol = allocimage(display, Rect(0,0,1,1), CMAP8, 1, themeget("title", DGreygreen));
++		lighttitlecol = allocimage(display, Rect(0,0,1,1), CMAP8, 1, themeget("lighttitle", DPalegreygreen));
+ 	} else {
+-		cols[HIGH] = allocimage(display, Rect(0,0,1,1), CMAP8, 1, DPurpleblue);
+-		titlecol = allocimage(display, Rect(0,0,1,1), CMAP8, 1, DPurpleblue);
+-		lighttitlecol = allocimage(display, Rect(0,0,1,1), CMAP8, 1, 0x222222FF);
++		cols[HIGH] = allocimage(display, Rect(0,0,1,1), CMAP8, 1, themeget("termhigh", DPurpleblue));
++		titlecol = allocimage(display, Rect(0,0,1,1), CMAP8, 1, themeget("title", DPurpleblue));
++		lighttitlecol = allocimage(display, Rect(0,0,1,1), CMAP8, 1, themeget("lighttitle", 0x222222FF));
+ 	}
+-	dholdcol = allocimage(display, Rect(0,0,1,1), CMAP8, 1, DMedblue);
+-	lightholdcol = allocimage(display, Rect(0,0,1,1), CMAP8, 1, DGreyblue);
+-	paleholdcol = allocimage(display, Rect(0,0,1,1), CMAP8, 1, DPalegreyblue);
+-	paletextcol = allocimage(display, Rect(0,0,1,1), CMAP8, 1, 0x666666FF^reverse);
+-	sizecol = allocimage(display, Rect(0,0,1,1), CMAP8, 1, DRed);
++	dholdcol = allocimage(display, Rect(0,0,1,1), CMAP8, 1, themeget("hold", DMedblue));
++	lightholdcol = allocimage(display, Rect(0,0,1,1), CMAP8, 1, themeget("lighthold", DGreyblue));
++	paleholdcol = allocimage(display, Rect(0,0,1,1), CMAP8, 1, themeget("palehold", DPalegreyblue));
++	paletextcol = allocimage(display, Rect(0,0,1,1), CMAP8, 1, themeget("paletext", 0x666666FF^reverse));
++	sizecol = allocimage(display, Rect(0,0,1,1), CMAP8, 1, themeget("size", DRed));
+ 
+ 	if(reverse == 0)
+ 		holdcol = dholdcol;
+ 	else
+ 		holdcol = paleholdcol;
++
++	themeend();
+ }

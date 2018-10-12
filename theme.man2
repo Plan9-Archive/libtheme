@@ -1,0 +1,55 @@
+.TH THEME 2
+.SH NAME
+themeinit, themeend, themeget \- read colors for a graphical color theme
+.SH SYNOPSIS
+.B #include <u.h>
+.br
+.B #include <libc.h>
+.br
+.B #include <theme.h>
+.PP
+.B
+void themeinit(char *name);
+.PP
+.B
+void themeend(void);
+.PP
+.B
+ulong themeget(char *color, ulong def);
+.SH DESCRIPTION
+These routines handle a
+.IR ndb (6)
+formatted database of color themes.
+.PP
+.I themeinit
+initializes the theme database for use. The database is by default located in
+.BI $home/lib/theme .
+If that file cannot be opened,
+.B /lib/theme
+is used. The
+.I theme
+argument selects which records from the database to use.
+.PP
+.I themeend
+closes the database and frees all resources allocated by
+.IB themeinit .
+.PP
+.I themeget
+looks up a color value for the name
+.IB color ,
+and returns
+.I def
+if no color exists.
+.PP
+If no color is found in the theme record named by the argument passed to
+.IB themeinit ,
+the color is looked up in the
+.B theme=default
+record.
+.SH DIAGNOSTICS
+.I themeget
+will always return
+.I def
+if the theme database can't be opened.
+.SH "SEE ALSO"
+.IR ndb (6)

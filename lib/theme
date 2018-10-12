@@ -1,0 +1,24 @@
+theme=default
+	background=0x262626ff # base02
+	foreground=0x808080ff
+
+theme=rio
+	# background=0x262626ff # base02
+	termback=0x1c1c1cff # base0
+	termbord=0x8a8a8aff # base1
+	termtext=0x808080ff
+	termhtext=0x1c1c1cff # yellow
+	size=0xd70000ff # red
+	title=0x5f8700ff # border?
+
+theme=samterm
+	mainback=0x1c1c1cff
+	maintext=0x808080ff
+	cmdback=0x1c1c1cff
+	cmdtext=0x808080ff
+
+theme=acme
+	mainback=0x1c1c1cff
+	maintext=0x808080ff
+	cmdback=0x585858ff
+	cmdtext=0x808080ff
