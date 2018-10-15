@@ -59,3 +59,10 @@ some predefined color names are in the library, taken from allocimage(2):
 - greyblue
 - palegreyblue
 - purpleblue
+
+patches for software
+====================
+
+there are some patches available to make existing software use libtheme.
+
+see [libtheme-patches](https://bitbucket.org/mischief/libtheme-patches) for details.
