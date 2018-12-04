@@ -91,6 +91,7 @@ themeend(void)
 	qlock(&themelock);
 	if(themedb != nil)
 		ndbclose(themedb);
+	themedb = nil;
 	qunlock(&themelock);
 }
 
